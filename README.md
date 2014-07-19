@@ -1,7 +1,7 @@
 tenfingers.py
 =============
 
-Download the statistics of a tenfingers.com user to a CSV file
+Download the statistics of a 10fastfingers.com user to a CSV file
 
 ```
 [~/dev/tenfingers.py>] python extractdata.py 
