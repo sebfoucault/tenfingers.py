@@ -35,11 +35,19 @@ def prepare_data(stats):
             new_data_item[k] = v
 
         test_type = ""
+        wpm_field = ""
         if "g1" in data_item:
             test_type = "simple"
+            wpm_field = "g1"
         elif "g2" in data_item:
             test_type = "advanced"
+            wpm_field = "g2"
+
+
         new_data_item["test_type"] = test_type
+        new_data_item["wpm"] = data_item[wpm_field]
+        del new_data_item[wpm_field]
+
         result.append(new_data_item)
 
     return result
@@ -60,9 +68,10 @@ def write_stats(target_file):
 
     with open(target_file, 'wb') as f:
         writer = csv.DictWriter(f,
-                                {'test_type', 'date', 'keystrokes', 'backspace_pressed',
-                                 'correct_words', 'wrong_words'},
+                                ['test_type', 'date', 'wpm', 'keystrokes', 'backspace_pressed',
+                                 'correct_words', 'wrong_words'],
                                 extrasaction='ignore', quoting=csv.QUOTE_ALL)
+        writer.writeheader()
         for data_item in stats:
             writer.writerow(data_item)
 
